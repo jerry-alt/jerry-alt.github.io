@@ -1,0 +1,102 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+        }
+
+        p {
+            line-height: 24px;
+            margin: 0;
+        }
+
+        p.head {
+            color: rgb(55, 53, 47);
+            text-align: center;
+            font-size: 22px !important;
+            padding-bottom: 5px;
+        }
+
+        p.time {
+            color: rgb(55, 53, 47);
+            text-align: center;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div style="align-items: center;">
+            <p class="head"><b>До защиты</b><br></p>
+            <p class="time">
+                <span id="year"></span>г
+                <span id="month"></span>м
+                <span id="day"></span>д
+                <span id="hour"></span>ч
+            </p>
+        </div>
+    </div>
+    <script>
+        function showRemaining() {
+            const second = 1000
+            const minute = 60 * second
+            const hour = 60 * minute
+            const day = 24 * hour
+            const month = 30 * day // approximately
+            const year = 365 * day // approximately
+
+            let now = new Date();
+            let then = new Date("June 1, 2025");
+            let difference = (then - now);
+            const time = [{
+                year
+            }, {
+                month
+            }, {
+                day
+            }, {
+                hour
+            }, {
+                minute
+            }, {
+                second
+            }].map((item, i, a) => {
+                const [
+                    [unitName, unit]
+                ] = Object.entries(item)
+                const units = difference / unit | 0
+                difference -= unit * units
+                console.log(units > 0 ? units + " " + unitName : "")
+                return units > 0 ? units : ""
+            }).filter(x => x);
+            console.log(time);
+            document.getElementById('year').textContent = time[0];
+            document.getElementById('month').textContent = time[1];
+            document.getElementById('day').textContent = time[2];
+            document.getElementById('hour').textContent = time[3];
+        }
+        showRemaining()
+        setInterval(showRemaining, 10000);
+
+    </script>
+    <div id="countdown"></div>
+</body>
+
+</html>
