@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, Liberation Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+        }
+
+        p {
+            line-height: 24px;
+            margin: 0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div style="align-items: center;">
+            <p style="font-style: italic;" id="content"></p>
+            <p style="font-size: 13px; color: gray; text-align: right;" id="author"></p>
+        </div>
+    </div>
+    <script>
+        async function getQuote() {
+            let response = await fetch('https://api.quotable.io/random');
+            if (response.ok) {
+                let data = await response.text()
+                let obj = JSON.parse(data)
+                document.getElementById('content').textContent = obj.content
+                document.getElementById('author').textContent = obj.author
+            }
+        }
+        getQuote()
+        setInterval(getQuote, 50000)
+
+    </script>
+    <div id="countdown"></div>
+</body>
+
+</html>
